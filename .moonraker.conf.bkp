@@ -1,0 +1,78 @@
+[server]
+host = 0.0.0.0
+port = 7125
+klippy_uds_address = /home/klipper/printer_data/comms/klippy.sock
+
+[database]
+
+[authorization]
+trusted_clients = 
+	10.0.0.0/8
+	127.0.0.0/8
+	169.254.0.0/16
+	172.16.0.0/12
+	192.168.0.0/16
+	FE80::/10
+	::1/128
+cors_domains = 
+	*.lan
+	*.local
+	*://my.mainsail.xyz
+	*://app.fluidd.xyz
+
+[paneldue]
+serial = /dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0
+baud = 115200
+machine_name = Chardaan
+macros = 
+	LOAD_FILAMENT
+	UNLOAD_FILAMENT
+confirmed_macros = 
+	FIRMWARE_RESTART
+	CANCEL_PRINT
+	POWER_OFF
+
+[file_manager]
+
+[power chardaan_printer]
+type = klipper_device
+object_name = output_pin ps_on
+
+[octoprint_compat]
+
+[history]
+
+[update_manager]
+channel = dev
+
+[update_manager mainsail]
+type = web
+channel = beta
+repo = mainsail-crew/mainsail
+path = /home/klipper/mainsail
+refresh_interval = 24
+
+[update_manager moonraker-telegram-bot]
+type = git_repo
+path = ~/moonraker-telegram-bot
+origin = https://github.com/nlef/moonraker-telegram-bot.git
+env = ~/moonraker-telegram-bot-env/bin/python
+requirements = scripts/requirements.txt
+install_script = scripts/install.sh
+
+[update_manager klipper_tmc_autotune]
+type = git_repo
+channel = dev
+path = ~/klipper_tmc_autotune
+origin = https://github.com/andrewmcgr/klipper_tmc_autotune.git
+managed_services = klipper
+primary_branch = main
+install_script = install.sh
+
+[update_manager crowsnest]
+type = git_repo
+path = ~/crowsnest
+origin = https://github.com/mainsail-crew/crowsnest.git
+managed_services = crowsnest
+install_script = tools/pkglist.sh
+
